@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,36 +64,39 @@ use Illuminate\Support\Facades\Route;
 //     return "Route not exist";
 // });
 
-Route::get('/', function(){
-    return view('welcome');
-});
+// Route::get('/', function(){
+//     return view('welcome');
+// });
 
-Route::get('/home', function(){
-    $blogs = [
-        [
-            'title' => 'Title 1',
-            'content' => 'Content 1',
-        ],
-        [
-            'title' => 'Title 2',
-            'content' => 'Content 2',
-        ],
-        [
-            'title' => 'Title 3',
-            'content' => 'Content 3',
-        ],
-        [
-            'title' => 'Title 4',
-            'content' => 'Content 4',
-        ],
-    ];
-    return view('home', compact('blogs') );
-});
+// Route::get('/home', function(){
+//     $blogs = [
+//         [
+//             'title' => 'Title 1',
+//             'content' => 'Content 1',
+//             'status' => 1,
+//         ],
+//         [
+//             'title' => 'Title 2',
+//             'content' => 'Content 2',
+//             'status' => 0,
+//         ],
+//         [
+//             'title' => 'Title 3',
+//             'content' => 'Content 3',
+//             'status' => 1,
+//         ],
+//         [
+//             'title' => 'Title 4',
+//             'content' => 'Content 4',
+//             'status' => 1,
+//         ],
+//     ];
+//     return view('home', compact('blogs') );
+// });
 
-Route::get('/about', function(){
-    return view('about');
-})->name('about ');
+// Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', HomeController::class);//using a single action controller
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/contact', [ContactController::class, 'index']);
+Route::resource('blog', BlogController::class);
 
-Route::get('/contact', function(){
-    return view('contact');
-});
